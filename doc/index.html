@@ -192,6 +192,7 @@ modal.close();
                 <li>tingle-btn--primary</li>
                 <li>tingle-btn--default</li>
                 <li>tingle-btn--danger</li>
+                <li>tingle-btn--success</li>
                 <li>tingle-btn--pull-left</li>
                 <li>tingle-btn--pull-right</li>
             </ul>
@@ -327,7 +328,7 @@ modal.close();
             console.log('before close');
             return true;
         },
-        cssClass: ['class1', 'class2']
+        cssClass: ['class1', 'class2', 'fullscreen']
     });
     var btn = document.querySelector('.js-tingle-modal-1');
     btn.addEventListener('click', function(){
@@ -354,12 +355,20 @@ modal.close();
         alert('click on primary button!');
     });
 
-    modalTinyBtn.addFooterBtn('Cancel', 'tingle-btn tingle-btn--default tingle-btn--pull-right', function(){
+    modalTinyBtn.addFooterBtn('Default', 'tingle-btn tingle-btn--default', function(){
+        modalTinyBtn.close();
+    });
+
+    modalTinyBtn.addFooterBtn('Cancel', 'tingle-btn tingle-btn--pull-right', function(){
         modalTinyBtn.close();
     });
 
     modalTinyBtn.addFooterBtn('Danger!', 'tingle-btn tingle-btn--danger', function(){
         alert('click on danger button!');
+    });
+
+    modalTinyBtn.addFooterBtn('Success', 'tingle-btn tingle-btn--success', function(){
+        alert('click on success button!');
     });
 
     /**

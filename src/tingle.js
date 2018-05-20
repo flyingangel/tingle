@@ -31,7 +31,8 @@
             footer: false,
             cssClass: [],
             closeLabel: 'Close',
-            closeMethods: ['overlay', 'button', 'escape']
+            closeMethods: ['overlay', 'button', 'escape'],
+            theme: null
         };
 
         // extends config
@@ -301,6 +302,10 @@
         }
 
         this.modal.style.display = 'none';
+
+        //default theme is dark
+        if (this.opts.theme)
+            this.opts.cssClass.push('theme-' + this.opts.theme);
 
         // custom class
         this.opts.cssClass.forEach(function(item) {

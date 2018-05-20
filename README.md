@@ -1,6 +1,10 @@
 
 ![Logo Tingle](logo.png)
 
+## Foreword
+
+Modified version, Angel's own flavour, of the original project [Tingle](https://robinparisi.github.io/tingle/)
+
 ## Documentation
 
 Documentation and demo can be found here:
@@ -37,5 +41,5 @@ $ gulp serve
 
 ## License
 
-© 2018 [Robin Parisi](https://github.com/robinparisi)  
+© 2018 [Robin Parisi](https://github.com/robinparisi)
 Released under the [MIT LICENSE](http://opensource.org/licenses/MIT)

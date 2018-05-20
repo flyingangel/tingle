@@ -13,26 +13,16 @@
   bottom: 0;
   left: 0;
   z-index: 1000;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   visibility: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
   background: rgba(0, 0, 0, .8);
   opacity: 0;
   cursor: pointer;
-  -webkit-transition: -webkit-transform .2s ease;
-  transition: -webkit-transform .2s ease;
   transition: transform .2s ease;
-  transition: transform .2s ease, -webkit-transform .2s ease;
 }
 
 /* confirm and alerts
@@ -68,7 +58,6 @@
   font-family: monospace;
   line-height: 1;
   cursor: pointer;
-  -webkit-transition: color .3s ease;
   transition: color .3s ease;
 }
 
@@ -82,7 +71,6 @@
 
 .tingle-modal-box {
   position: relative;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-top: auto;
   margin-bottom: auto;
@@ -91,13 +79,14 @@
   background: #fff;
   opacity: 1;
   cursor: auto;
-  -webkit-transition: -webkit-transform .3s cubic-bezier(.175, .885, .32, 1.275);
-  transition: -webkit-transform .3s cubic-bezier(.175, .885, .32, 1.275);
   transition: transform .3s cubic-bezier(.175, .885, .32, 1.275);
-  transition: transform .3s cubic-bezier(.175, .885, .32, 1.275), -webkit-transform .3s cubic-bezier(.175, .885, .32, 1.275);
-  -webkit-transform: scale(.8);
-  -ms-transform: scale(.8);
   transform: scale(.8);
+}
+
+.tingle-modal.fullscreen .tingle-modal-box {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .tingle-modal-box__content {
@@ -124,8 +113,13 @@
   bottom: -200px; /* TODO : find a better way */
   z-index: 10001;
   opacity: 1;
-  -webkit-transition: bottom .3s ease-in-out .3s;
   transition: bottom .3s ease-in-out .3s;
+}
+
+.tingle-modal.theme-dark .tingle-modal-box,
+.tingle-modal.theme-dark .tingle-modal-box__footer {
+    background: transparent;
+    color: white;
 }
 
 /* state
@@ -143,7 +137,6 @@
 }
 
 .tingle-enabled .tingle-content-wrapper {
-  -webkit-filter: blur(8px);
   filter: blur(8px);
 }
 
@@ -153,14 +146,11 @@
 }
 
 .tingle-modal--visible .tingle-modal-box {
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
   transform: scale(1);
 }
 
 .tingle-modal--overflow {
   overflow-y: scroll;
-  padding-top: 8vh;
 }
 
 /* btn
@@ -180,8 +170,8 @@
   font-family: inherit;
   line-height: normal;
   cursor: pointer;
-  -webkit-transition: background-color .4s ease;
   transition: background-color .4s ease;
+  border-radius: 2px;
 }
 
 .tingle-btn--primary {
@@ -196,12 +186,55 @@
   background-color: #34495e;
 }
 
+.tingle-btn--success {
+  background-color: #01b122;
+}
+
 .tingle-btn--pull-left {
   float: left;
 }
 
 .tingle-btn--pull-right {
   float: right;
+}
+
+.tingle-modal.theme-dark .tingle-btn:hover {
+    color: white;
+}
+.tingle-modal.theme-dark .tingle-btn {
+    background-color: transparent;
+}
+.tingle-modal.theme-dark .tingle-btn--danger {
+    background-color: transparent;
+    border: 1px #e74c3c solid;
+    color: #ff6b5c;
+}
+.tingle-modal.theme-dark .tingle-btn--danger:hover {
+    background-color: #e74c3c;
+}
+.tingle-modal.theme-dark .tingle-btn--default {
+    background-color: transparent;
+    border: 1px Silver solid;
+    color: white;
+}
+.tingle-modal.theme-dark .tingle-btn--default:hover {
+    background-color: #444;
+}
+.tingle-modal.theme-dark .tingle-btn--primary {
+    background-color: transparent;
+    border: 1px #3498db solid;
+    color: #56bbff;
+}
+.tingle-modal.theme-dark .tingle-btn--primary:hover {
+    background-color: #3498db;
+}
+.tingle-modal.theme-dark .tingle-btn--success {
+    background-color: transparent;
+    border: 1px #01b122 solid;
+    color: #01df2b;
+}
+.tingle-modal.theme-dark .tingle-btn--success:hover {
+    background-color: #01b122;
 }
 
 /* responsive
@@ -268,21 +301,18 @@
   }
 }
 
-@supports ((-webkit-backdrop-filter: blur(12px)) or (backdrop-filter: blur(12px))) {
+@supports (backdrop-filter: blur(12px)) {
   .tingle-modal {
-    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
   }
 
   @media (max-width : 540px) {
     .tingle-modal {
-      -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px);
     }
   }
 
   .tingle-enabled .tingle-content-wrapper {
-    -webkit-filter: none;
     filter: none;
   }
 }

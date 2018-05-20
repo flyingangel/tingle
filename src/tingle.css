@@ -83,6 +83,12 @@
   transform: scale(.8);
 }
 
+.tingle-modal.fullscreen .tingle-modal-box {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .tingle-modal-box__content {
   padding: 3rem 3rem;
 }
@@ -108,6 +114,12 @@
   z-index: 10001;
   opacity: 1;
   transition: bottom .3s ease-in-out .3s;
+}
+
+.tingle-modal.theme-dark .tingle-modal-box,
+.tingle-modal.theme-dark .tingle-modal-box__footer {
+    background: transparent;
+    color: white;
 }
 
 /* state
@@ -139,7 +151,6 @@
 
 .tingle-modal--overflow {
   overflow-y: scroll;
-  padding-top: 8vh;
 }
 
 /* btn
@@ -160,6 +171,7 @@
   line-height: normal;
   cursor: pointer;
   transition: background-color .4s ease;
+  border-radius: 2px;
 }
 
 .tingle-btn--primary {
@@ -174,12 +186,55 @@
   background-color: #34495e;
 }
 
+.tingle-btn--success {
+  background-color: #01b122;
+}
+
 .tingle-btn--pull-left {
   float: left;
 }
 
 .tingle-btn--pull-right {
   float: right;
+}
+
+.tingle-modal.theme-dark .tingle-btn:hover {
+    color: white;
+}
+.tingle-modal.theme-dark .tingle-btn {
+    background-color: transparent;
+}
+.tingle-modal.theme-dark .tingle-btn--danger {
+    background-color: transparent;
+    border: 1px #e74c3c solid;
+    color: #ff6b5c;
+}
+.tingle-modal.theme-dark .tingle-btn--danger:hover {
+    background-color: #e74c3c;
+}
+.tingle-modal.theme-dark .tingle-btn--default {
+    background-color: transparent;
+    border: 1px Silver solid;
+    color: white;
+}
+.tingle-modal.theme-dark .tingle-btn--default:hover {
+    background-color: #444;
+}
+.tingle-modal.theme-dark .tingle-btn--primary {
+    background-color: transparent;
+    border: 1px #3498db solid;
+    color: #56bbff;
+}
+.tingle-modal.theme-dark .tingle-btn--primary:hover {
+    background-color: #3498db;
+}
+.tingle-modal.theme-dark .tingle-btn--success {
+    background-color: transparent;
+    border: 1px #01b122 solid;
+    color: #01df2b;
+}
+.tingle-modal.theme-dark .tingle-btn--success:hover {
+    background-color: #01b122;
 }
 
 /* responsive
