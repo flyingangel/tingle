@@ -33,7 +33,7 @@
             cssClass: [],
             closeLabel: 'Close',
             closeMethods: ['overlay', 'button', 'escape'],
-            theme: null
+            theme: 'dark'
         };
 
         // extends config
@@ -457,7 +457,6 @@
         var mod = new Modal({
             footer: true,
             centerFooter: true,
-            theme: 'dark',
             closeMethods: ['button', 'escape']
         });
         mod.setContent(msg);
@@ -485,7 +484,7 @@
     /* == window.alert()
     /* ----------------------------------------------------------- */
     function Alert(msg) {
-        var mod = new Modal({theme:'dark'});
+        var mod = new Modal();
         mod.setContent(msg);
         mod.open();
     }

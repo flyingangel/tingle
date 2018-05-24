@@ -91,7 +91,7 @@ var modal = new tingle.modal({
     stickyFooter: false,
     closeMethods: ['overlay', 'button', 'escape'],
     closeLabel: "Close",
-    cssClass: ['custom-class-1', 'custom-class-2'],
+    cssClass: ['custom-class-1', 'custom-class-2'], //set "fullscreen" for fullscreen modal
     onOpen: function() {
         console.log('modal open');
     },
@@ -340,7 +340,7 @@ modal.close();
             console.log('before close');
             return true;
         },
-        cssClass: ['class1', 'class2', 'fullscreen']
+        cssClass: ['class1', 'class2']
     });
     var btn = document.querySelector('.js-tingle-modal-1');
     btn.addEventListener('click', function(){
