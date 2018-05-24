@@ -1,7 +1,7 @@
 /*!
 * tingle.js
 * @author  robin_parisi
-* @version 0.13.2
+* @version 0.14
 * @url
 */
 (function(root, factory) {
@@ -29,6 +29,7 @@
             beforeClose: null,
             stickyFooter: false,
             footer: false,
+            centerFooter: false,
             cssClass: [],
             closeLabel: 'Close',
             closeMethods: ['overlay', 'button', 'escape'],
@@ -224,21 +225,32 @@
     };
 
 
-    Modal.prototype.addFooterBtn = function(label, cssClass, callback) {
+    Modal.prototype.addBtn = function(jsonConf) {
         var btn = document.createElement("button");
 
         // set label
-        btn.innerHTML = label;
+        btn.innerHTML = jsonConf.label;
 
         // bind callback
-        btn.addEventListener('click', callback);
+        btn.addEventListener('click', jsonConf.onclick);
 
-        if (typeof cssClass === 'string' && cssClass.length) {
+        //always bind default class
+        btn.classList.add('tingle-btn');
+
+        //type of the button
+        if (jsonConf.type)
+            btn.classList.add('tingle-btn--' + jsonConf.type);
+
+        if (typeof jsonConf.cssClass === 'string' && jsonConf.cssClass.length) {
             // add classes to btn
-            cssClass.split(" ").forEach(function(item) {
+            jsonConf.cssClass.split(" ").forEach(function(item) {
                 btn.classList.add(item);
             });
         }
+
+        //floating right
+        if (jsonConf.position === 'right')
+            btn.classList.add('tingle-btn--pull-right');
 
         this.modalBoxFooter.appendChild(btn);
 
@@ -275,7 +287,7 @@
                 this.setStickyFooter(true);
             }
         }
-    }
+    };
 
 
     /* ----------------------------------------------------------- */
@@ -352,6 +364,10 @@
     function _buildFooter() {
         this.modalBoxFooter = document.createElement('div');
         this.modalBoxFooter.classList.add('tingle-modal-box__footer');
+
+        if (this.opts.centerFooter)
+            this.modalBoxFooter.classList.add('align-center');
+
         this.modalBox.appendChild(this.modalBoxFooter);
     }
 
@@ -403,18 +419,6 @@
     }
 
     /* ----------------------------------------------------------- */
-    /* == confirm */
-    /* ----------------------------------------------------------- */
-
-    // coming soon
-
-    /* ----------------------------------------------------------- */
-    /* == alert */
-    /* ----------------------------------------------------------- */
-
-    // coming soon
-
-    /* ----------------------------------------------------------- */
     /* == helpers */
     /* ----------------------------------------------------------- */
 
@@ -447,11 +451,53 @@
     }
 
     /* ----------------------------------------------------------- */
+    /* == confirm */
+    /* ----------------------------------------------------------- */
+    function Confirm(msg, OkLabel, CancelLabel) {
+        var mod = new Modal({
+            footer: true,
+            centerFooter: true,
+            theme: 'dark',
+            closeMethods: ['button', 'escape']
+        });
+        mod.setContent(msg);
+
+        mod.addBtn({
+            label: CancelLabel || 'Cancel',
+            type: 'default',
+            onclick: function() {
+                mod.close();
+            }
+        });
+
+        mod.addBtn({
+            label: OkLabel || 'OK',
+            type: 'primary',
+            onclick: function() {
+                mod.close();
+            }
+        });
+
+        mod.open();
+    }
+
+    /* ----------------------------------------------------------- */
+    /* == window.alert()
+    /* ----------------------------------------------------------- */
+    function Alert(msg) {
+        var mod = new Modal({theme:'dark'});
+        mod.setContent(msg);
+        mod.open();
+    }
+
+    /* ----------------------------------------------------------- */
     /* == return */
     /* ----------------------------------------------------------- */
 
     return {
-        modal: Modal
+        modal: Modal,
+        alert: Alert,
+        confirm: Confirm
     };
 
 }));

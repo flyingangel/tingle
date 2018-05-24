@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------- */
-/* == tingle v0.13.2 */
+/* == tingle v0.14 */
 /* ----------------------------------------------------------- */
 
 .tingle-modal * {
@@ -19,7 +19,7 @@
   align-items: center;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
-  background: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, .9);
   opacity: 0;
   cursor: pointer;
   transition: transform .2s ease;
@@ -116,6 +116,10 @@
   transition: bottom .3s ease-in-out .3s;
 }
 
+.tingle-modal-box__footer.align-center {
+    text-align: center;
+}
+
 .tingle-modal.theme-dark .tingle-modal-box,
 .tingle-modal.theme-dark .tingle-modal-box__footer {
     background: transparent;
@@ -161,7 +165,7 @@
   margin: 0 .5rem;
   padding: 1rem 2rem;
   border: none;
-  background-color: grey;
+  background-color: #444;
   box-shadow: none;
   color: #fff;
   vertical-align: middle;
@@ -172,6 +176,9 @@
   cursor: pointer;
   transition: background-color .4s ease;
   border-radius: 2px;
+}
+.tingle-btn:focus {
+    outline: none;
 }
 
 .tingle-btn--primary {
