@@ -232,7 +232,7 @@
         btn.innerHTML = jsonConf.label;
 
         // bind callback
-        btn.addEventListener('click', jsonConf.onclick);
+        btn.addEventListener('click', jsonConf.onClick);
 
         //always bind default class
         btn.classList.add('tingle-btn');
@@ -249,8 +249,10 @@
         }
 
         //floating right
-        if (jsonConf.position === 'right')
+        if (jsonConf.position === 'right' || jsonConf.position === undefined)
             btn.classList.add('tingle-btn--pull-right');
+        else if (jsonConf.position === 'left')
+            btn.classList.add('tingle-btn--pull-left');
 
         this.modalBoxFooter.appendChild(btn);
 
@@ -454,39 +456,52 @@
     /* == confirm */
     /* ----------------------------------------------------------- */
     function Confirm(msg, OkLabel, CancelLabel) {
-        var mod = new Modal({
-            footer: true,
-            centerFooter: true,
-            closeMethods: ['button', 'escape']
-        });
-        mod.setContent(msg);
+        return new Promise(function(resolve, reject){
+            var mod = new Modal({
+                footer: true,
+                centerFooter: true,
+                closeMethods: ['button', 'escape'],
+                onClose: function(){
+                    reject();
+                }
+            });
+            mod.setContent(msg);
 
-        mod.addBtn({
-            label: CancelLabel || 'Cancel',
-            type: 'default',
-            onclick: function() {
-                mod.close();
-            }
-        });
+            mod.addBtn({
+                label: OkLabel || 'OK',
+                type: 'primary',
+                onClick: function() {
+                    mod.close();
+                    resolve();
+                }
+            });
 
-        mod.addBtn({
-            label: OkLabel || 'OK',
-            type: 'primary',
-            onclick: function() {
-                mod.close();
-            }
-        });
+            mod.addBtn({
+                label: CancelLabel || 'Cancel',
+                type: 'default',
+                onClick: function() {
+                    mod.close();
+                    reject();
+                }
+            });
 
-        mod.open();
+            mod.open();
+        });
     }
 
     /* ----------------------------------------------------------- */
     /* == window.alert()
     /* ----------------------------------------------------------- */
     function Alert(msg) {
-        var mod = new Modal();
-        mod.setContent(msg);
-        mod.open();
+        return new Promise(function(resolve, reject){
+            var mod = new Modal({
+                onClose: function(){
+                    resolve();
+                }
+            });
+            mod.setContent(msg);
+            mod.open();
+        });
     }
 
     /* ----------------------------------------------------------- */

@@ -13,9 +13,12 @@
   bottom: 0;
   left: 0;
   z-index: 1000;
+  display: -ms-flexbox;
   display: flex;
   visibility: hidden;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -ms-flex-align: center;
   align-items: center;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
@@ -71,6 +74,7 @@
 
 .tingle-modal-box {
   position: relative;
+  -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-top: auto;
   margin-bottom: auto;
@@ -80,6 +84,7 @@
   opacity: 1;
   cursor: auto;
   transition: transform .3s cubic-bezier(.175, .885, .32, 1.275);
+  -ms-transform: scale(.8);
   transform: scale(.8);
 }
 
@@ -141,6 +146,7 @@
 }
 
 .tingle-enabled .tingle-content-wrapper {
+  -webkit-filter: blur(8px);
   filter: blur(8px);
 }
 
@@ -150,6 +156,7 @@
 }
 
 .tingle-modal--visible .tingle-modal-box {
+  -ms-transform: scale(1);
   transform: scale(1);
 }
 
@@ -209,35 +216,35 @@
     color: white;
 }
 .tingle-modal.theme-dark .tingle-btn {
-    background-color: transparent;
+    background-color: #111;
 }
 .tingle-modal.theme-dark .tingle-btn--danger {
-    background-color: transparent;
-    border: 1px #e74c3c solid;
+    background-color: #111;
+    border: 1px #933228 solid;
     color: #ff6b5c;
 }
 .tingle-modal.theme-dark .tingle-btn--danger:hover {
     background-color: #e74c3c;
 }
 .tingle-modal.theme-dark .tingle-btn--default {
-    background-color: transparent;
-    border: 1px Silver solid;
+    background-color: #111;
+    border: 1px #333 solid;
     color: white;
 }
 .tingle-modal.theme-dark .tingle-btn--default:hover {
     background-color: #444;
 }
 .tingle-modal.theme-dark .tingle-btn--primary {
-    background-color: transparent;
-    border: 1px #3498db solid;
+    background-color: #111;
+    border: 1px #296892 solid;
     color: #56bbff;
 }
 .tingle-modal.theme-dark .tingle-btn--primary:hover {
     background-color: #3498db;
 }
 .tingle-modal.theme-dark .tingle-btn--success {
-    background-color: transparent;
-    border: 1px #01b122 solid;
+    background-color: #111;
+    border: 1px #176626 solid;
     color: #01df2b;
 }
 .tingle-modal.theme-dark .tingle-btn--success:hover {
@@ -308,18 +315,21 @@
   }
 }
 
-@supports (backdrop-filter: blur(12px)) {
+@supports ((-webkit-backdrop-filter: blur(12px)) or (backdrop-filter: blur(12px))) {
   .tingle-modal {
+    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
   }
 
   @media (max-width : 540px) {
     .tingle-modal {
+      -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px);
     }
   }
 
   .tingle-enabled .tingle-content-wrapper {
+    -webkit-filter: none;
     filter: none;
   }
 }

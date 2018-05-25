@@ -46,7 +46,7 @@ gulp.task('css-min', function () {
 */
 gulp.task('js', function() {
     return gulp.src('src/tingle.js')
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('dist'));
 });
 
 /**
@@ -58,7 +58,7 @@ gulp.task('js-min', function() {
         mangle: true
     }))
     .pipe(rename("tingle.min.js"))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('dist'));
 });
 
 /**

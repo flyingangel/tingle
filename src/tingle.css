@@ -209,35 +209,35 @@
     color: white;
 }
 .tingle-modal.theme-dark .tingle-btn {
-    background-color: transparent;
+    background-color: #111;
 }
 .tingle-modal.theme-dark .tingle-btn--danger {
-    background-color: transparent;
-    border: 1px #e74c3c solid;
+    background-color: #111;
+    border: 1px #933228 solid;
     color: #ff6b5c;
 }
 .tingle-modal.theme-dark .tingle-btn--danger:hover {
     background-color: #e74c3c;
 }
 .tingle-modal.theme-dark .tingle-btn--default {
-    background-color: transparent;
-    border: 1px Silver solid;
+    background-color: #111;
+    border: 1px #333 solid;
     color: white;
 }
 .tingle-modal.theme-dark .tingle-btn--default:hover {
     background-color: #444;
 }
 .tingle-modal.theme-dark .tingle-btn--primary {
-    background-color: transparent;
-    border: 1px #3498db solid;
+    background-color: #111;
+    border: 1px #296892 solid;
     color: #56bbff;
 }
 .tingle-modal.theme-dark .tingle-btn--primary:hover {
     background-color: #3498db;
 }
 .tingle-modal.theme-dark .tingle-btn--success {
-    background-color: transparent;
-    border: 1px #01b122 solid;
+    background-color: #111;
+    border: 1px #176626 solid;
     color: #01df2b;
 }
 .tingle-modal.theme-dark .tingle-btn--success:hover {

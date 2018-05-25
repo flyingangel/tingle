@@ -115,7 +115,7 @@ model.addBtn({
     cssClass: 'optional-css-class',
     type: 'default', //default | success | danger | primary
     position: 'right'   //left | right
-    onclick: function(){
+    onClick: function(){
         // here goes some logic
         modal.close();
     }
@@ -126,6 +126,20 @@ modal.open();
 
 // close modal
 modal.close();
+
+
+//mimic window.alert()
+tingle.alert('Some alert message').then(function(){
+    //code what to do after alert close
+});
+
+//mimic window.confirm()
+tingle.confirm('Some confirm message').then(function(){
+    //code what to do after click on confirm
+})
+.catch(function(){
+    //code what to do after click on cancel or close modal
+});
             </code></pre>
             <h2 data-bullet="4" class="title">Options</h2>
             <table class="methods">
@@ -179,7 +193,7 @@ modal.close();
                 <tr>
                     <td>cssClass</td>
                     <td>array</td>
-                    <td>Custom CSS classes that will be added to tingle container</td>
+                    <td>Custom CSS classes that will be added to tingle container. Put "fullscreen" to create a fullscreen Modal</td>
                 </tr>
                 <tr>
                     <td>closeLabel</td>
@@ -254,11 +268,11 @@ modal.close();
                     <td>Destroy modal (remove from dom and unbind events)</td>
                 </tr>
                 <tr>
-                    <td>tingle.alert(msg)></td>
+                    <td>tingle.alert(msg)</td>
                     <td>Same as window.alert() using Tingle Modal</td>
                 </tr>
                 <tr>
-                    <td>tingle.confirm(msg)></td>
+                    <td>tingle.confirm(msg)</td>
                     <td>Same as window.confirm() using Tingle Modal</td>
                 </tr>
             </table>
@@ -367,36 +381,37 @@ modal.close();
     modalTinyBtn.addBtn({
         label: 'Primary action',
         type: 'primary',
-        position: 'right',
-        onclick: function(){
+        onClick: function(){
             alert('click on primary button!');
         }
     });
     modalTinyBtn.addBtn({
         label: 'Cancel',
-        position: 'right',
-        onclick: function(){
+        onClick: function(){
             modalTinyBtn.close();
         }
     });
     modalTinyBtn.addBtn({
         label: 'Normal',
         type: 'default',
-        onclick: function(){
+        position: 'left',
+        onClick: function(){
             modalTinyBtn.close();
         }
     });
     modalTinyBtn.addBtn({
         label: 'Danger!',
         type: 'danger',
-        onclick: function(){
+        position: 'left',
+        onClick: function(){
             alert('click on danger button!');
         }
     });
     modalTinyBtn.addBtn({
         label: 'Success',
         type: 'success',
-        onclick: function(){
+        position: 'left',
+        onClick: function(){
             alert('click on success button!');
         }
     });
@@ -424,13 +439,20 @@ modal.close();
         modalStickyFooter.open();
     });
 
-
-    modalStickyFooter.addBtn('I agree', 'tingle-btn--primary tingle-btn--pull-right', function(){
-        modalStickyFooter.close();
+    modalStickyFooter.addBtn({
+        label: 'I agree',
+        type: 'primary',
+        onClick: function(){
+            modalStickyFooter.close();
+        }
     });
 
-    modalStickyFooter.addBtn('Cancel', 'tingle-btn--default tingle-btn--pull-right', function(){
-        modalStickyFooter.close();
+    modalStickyFooter.addBtn({
+        label: 'Cancel',
+        type: 'default',
+        onClick: function(){
+            modalStickyFooter.close();
+        }
     });
 
     modalStickyFooter.setContent(document.querySelector('.tingle-demo-sticky').innerHTML);
@@ -450,12 +472,20 @@ modal.close();
     });
     modalButtonOnly.setContent(document.querySelector('.tingle-demo-force-close').innerHTML);
 
-    modalButtonOnly.addBtn('I agree', 'tingle-btn--primary tingle-btn--pull-right', function(){
-        modalButtonOnly.close();
+    modalButtonOnly.addBtn({
+        label: 'I agree',
+        type: 'primary',
+        onClick: function(){
+            modalButtonOnly.close();
+        }
     });
 
-    modalButtonOnly.addBtn('Cancel', 'tingle-btn--default tingle-btn--pull-right', function(){
-        modalButtonOnly.close();
+    modalButtonOnly.addBtn({
+        label: 'Cancel',
+        type: 'default',
+        onClick: function(){
+            modalButtonOnly.close();
+        }
     });
 
     /**
@@ -475,13 +505,20 @@ modal.close();
     //alert
     var btn7 = document.querySelector('.js-tingle-modal-7');
     btn7.addEventListener('click', function(){
-        tingle.alert('Some alert message');
+        tingle.alert('Some alert message').then(function(){
+            console.log('alert finished');
+        });
     });
 
     //confirm
     var btn8 = document.querySelector('.js-tingle-modal-8');
     btn8.addEventListener('click', function(){
-        tingle.confirm('Some confirm message');
+        tingle.confirm('Some confirm message').then(function(){
+            console.log('you confirmed');
+        })
+        .catch(function(){
+            console.log('you cancelled');
+        });
     });
 
     </script>
