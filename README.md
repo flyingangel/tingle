@@ -3,12 +3,12 @@
 
 ## Foreword
 
-Modified version, Angel's own flavour, of the original project [Tingle](https://robinparisi.github.io/tingle/)
+Modified version, Angel's own flavour, of the original project [Tingle](https://github.com/robinparisi/tingle)
 
 ## Documentation
 
 Documentation and demo can be found here:
-[https://robinparisi.github.io/tingle/](https://robinparisi.github.io/tingle/)
+[https://flyingangel.github.io/tingle/](https://flyingangel.github.io/tingle/)
 
 ## Introduction
 
@@ -23,9 +23,6 @@ Tingle is a minimalist and easy-to-use modal plugin written in pure JavaScript:
 
 ## Roadmap
 
-* ~~Flexbox support~~
-* ~~Better responsive~~
-* alert/dialog
 * Accessibility (any help is welcome)
 
 ## Contribute
@@ -33,7 +30,7 @@ Tingle is a minimalist and easy-to-use modal plugin written in pure JavaScript:
 Run the demo and listen for changes:
 
 ```bash
-$ git clone git@github.com:robinparisi/tingle.git
+$ git clone git@github.com:flyingangel/tingle.git
 $ cd tingle
 $ npm install
 $ gulp serve
@@ -43,3 +40,4 @@ $ gulp serve
 
 © 2018 [Robin Parisi](https://github.com/robinparisi)
 Released under the [MIT LICENSE](http://opensource.org/licenses/MIT)
+Maintainer [Thanh Trung NGUYEN](https://github.com/flyingangel)
