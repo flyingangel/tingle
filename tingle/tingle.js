@@ -1,7 +1,7 @@
 /*!
 * tingle.js
 * @author  robin_parisi
-* @version 0.13.1
+* @version 0.14
 * @url
 */
 (function(root, factory) {
@@ -29,9 +29,11 @@
             beforeClose: null,
             stickyFooter: false,
             footer: false,
+            centerFooter: false,
             cssClass: [],
             closeLabel: 'Close',
-            closeMethods: ['overlay', 'button', 'escape']
+            closeMethods: ['overlay', 'button', 'escape'],
+            theme: 'dark'
         };
 
         // extends config
@@ -132,6 +134,7 @@
 
         document.body.classList.remove('tingle-enabled');
         window.scrollTo(0, this._scrollPosition);
+        document.body.style.top = null;
 
         this.modal.classList.remove('tingle-modal--visible');
 
@@ -169,6 +172,11 @@
         } else {
             this.modalBoxContent.innerHTML = "";
             this.modalBoxContent.appendChild(content);
+        }
+
+        if (this.isOpen()) {
+            // check if modal is bigger than screen height
+            this.checkOverflow();
         }
     };
 
@@ -217,21 +225,34 @@
     };
 
 
-    Modal.prototype.addFooterBtn = function(label, cssClass, callback) {
+    Modal.prototype.addBtn = function(jsonConf) {
         var btn = document.createElement("button");
 
         // set label
-        btn.innerHTML = label;
+        btn.innerHTML = jsonConf.label;
 
         // bind callback
-        btn.addEventListener('click', callback);
+        btn.addEventListener('click', jsonConf.onClick);
 
-        if (typeof cssClass === 'string' && cssClass.length) {
+        //always bind default class
+        btn.classList.add('tingle-btn');
+
+        //type of the button
+        if (jsonConf.type)
+            btn.classList.add('tingle-btn--' + jsonConf.type);
+
+        if (typeof jsonConf.cssClass === 'string' && jsonConf.cssClass.length) {
             // add classes to btn
-            cssClass.split(" ").forEach(function(item) {
+            jsonConf.cssClass.split(" ").forEach(function(item) {
                 btn.classList.add(item);
             });
         }
+
+        //floating right
+        if (jsonConf.position === 'right' || jsonConf.position === undefined)
+            btn.classList.add('tingle-btn--pull-right');
+        else if (jsonConf.position === 'left')
+            btn.classList.add('tingle-btn--pull-left');
 
         this.modalBoxFooter.appendChild(btn);
 
@@ -268,7 +289,7 @@
                 this.setStickyFooter(true);
             }
         }
-    }
+    };
 
 
     /* ----------------------------------------------------------- */
@@ -295,6 +316,10 @@
         }
 
         this.modal.style.display = 'none';
+
+        //default theme is dark
+        if (this.opts.theme)
+            this.opts.cssClass.push('theme-' + this.opts.theme);
 
         // custom class
         this.opts.cssClass.forEach(function(item) {
@@ -341,6 +366,10 @@
     function _buildFooter() {
         this.modalBoxFooter = document.createElement('div');
         this.modalBoxFooter.classList.add('tingle-modal-box__footer');
+
+        if (this.opts.centerFooter)
+            this.modalBoxFooter.classList.add('align-center');
+
         this.modalBox.appendChild(this.modalBoxFooter);
     }
 
@@ -392,18 +421,6 @@
     }
 
     /* ----------------------------------------------------------- */
-    /* == confirm */
-    /* ----------------------------------------------------------- */
-
-    // coming soon
-
-    /* ----------------------------------------------------------- */
-    /* == alert */
-    /* ----------------------------------------------------------- */
-
-    // coming soon
-
-    /* ----------------------------------------------------------- */
     /* == helpers */
     /* ----------------------------------------------------------- */
 
@@ -436,11 +453,65 @@
     }
 
     /* ----------------------------------------------------------- */
+    /* == confirm */
+    /* ----------------------------------------------------------- */
+    function Confirm(msg, OkLabel, CancelLabel) {
+        return new Promise(function(resolve, reject){
+            var mod = new Modal({
+                footer: true,
+                centerFooter: true,
+                closeMethods: ['button', 'escape'],
+                onClose: function(){
+                    reject();
+                }
+            });
+            mod.setContent(msg);
+
+            mod.addBtn({
+                label: OkLabel || 'OK',
+                type: 'primary',
+                onClick: function() {
+                    mod.close();
+                    resolve();
+                }
+            });
+
+            mod.addBtn({
+                label: CancelLabel || 'Cancel',
+                type: 'default',
+                onClick: function() {
+                    mod.close();
+                    reject();
+                }
+            });
+
+            mod.open();
+        });
+    }
+
+    /* ----------------------------------------------------------- */
+    /* == window.alert()
+    /* ----------------------------------------------------------- */
+    function Alert(msg) {
+        return new Promise(function(resolve, reject){
+            var mod = new Modal({
+                onClose: function(){
+                    resolve();
+                }
+            });
+            mod.setContent(msg);
+            mod.open();
+        });
+    }
+
+    /* ----------------------------------------------------------- */
     /* == return */
     /* ----------------------------------------------------------- */
 
     return {
-        modal: Modal
+        modal: Modal,
+        alert: Alert,
+        confirm: Confirm
     };
 
 }));

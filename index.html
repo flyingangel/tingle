@@ -49,7 +49,9 @@
             <button class="btn btn--secondary btn-demo js-tingle-modal-3">Big content? No problem!</button>
             <button class="btn btn--secondary btn-demo js-tingle-modal-4">Stick to me!</button>
             <button class="btn btn--secondary btn-demo js-tingle-modal-5">Close with footer button only</button>
-            <button class="btn btn--secondary btn-demo js-tingle-modal-6">?</button>
+            <button class="btn btn--secondary btn-demo js-tingle-modal-6">Media</button>
+            <button class="btn btn--secondary btn-demo js-tingle-modal-7">Alert</button>
+            <button class="btn btn--secondary btn-demo js-tingle-modal-8">Confirm</button>
 
             <h2 data-bullet="2" class="title">Installation</h2>
             <table class="methods">
@@ -85,10 +87,11 @@
 // instanciate new modal
 var modal = new tingle.modal({
     footer: true,
+    centerFooter: false,
     stickyFooter: false,
     closeMethods: ['overlay', 'button', 'escape'],
     closeLabel: "Close",
-    cssClass: ['custom-class-1', 'custom-class-2'],
+    cssClass: ['custom-class-1', 'custom-class-2'], //set "fullscreen" for fullscreen modal
     onOpen: function() {
         console.log('modal open');
     },
@@ -107,15 +110,15 @@ var modal = new tingle.modal({
 modal.setContent('&lt;h1&gt;here\'s some content&lt;/h1&gt;');
 
 // add a button
-modal.addFooterBtn('Button label', 'tingle-btn tingle-btn--primary', function() {
-    // here goes some logic
-    modal.close();
-});
-
-// add another button
-modal.addFooterBtn('Dangerous action !', 'tingle-btn tingle-btn--danger', function() {
-    // here goes some logic
-    modal.close();
+model.addBtn({
+    label: 'Button label',
+    cssClass: 'optional-css-class',
+    type: 'default', //default | success | danger | primary
+    position: 'right'   //left | right
+    onClick: function(){
+        // here goes some logic
+        modal.close();
+    }
 });
 
 // open modal
@@ -123,6 +126,20 @@ modal.open();
 
 // close modal
 modal.close();
+
+
+//mimic window.alert()
+tingle.alert('Some alert message').then(function(){
+    //code what to do after alert close
+});
+
+//mimic window.confirm()
+tingle.confirm('Some confirm message').then(function(){
+    //code what to do after click on confirm
+})
+.catch(function(){
+    //code what to do after click on cancel or close modal
+});
             </code></pre>
             <h2 data-bullet="4" class="title">Options</h2>
             <table class="methods">
@@ -137,6 +154,11 @@ modal.close();
                     <td>footer</td>
                     <td>boolean</td>
                     <td>Display a footer or not</td>
+                </tr>
+                <tr>
+                    <td>centerFooter</td>
+                    <td>boolean</td>
+                    <td>Center buttons inside footer</td>
                 </tr>
                 <tr>
                     <td>stickyFooter</td>
@@ -171,7 +193,7 @@ modal.close();
                 <tr>
                     <td>cssClass</td>
                     <td>array</td>
-                    <td>Custom CSS classes that will be added to tingle container</td>
+                    <td>Custom CSS classes that will be added to tingle container. Put "fullscreen" to create a fullscreen Modal</td>
                 </tr>
                 <tr>
                     <td>closeLabel</td>
@@ -192,6 +214,7 @@ modal.close();
                 <li>tingle-btn--primary</li>
                 <li>tingle-btn--default</li>
                 <li>tingle-btn--danger</li>
+                <li>tingle-btn--success</li>
                 <li>tingle-btn--pull-left</li>
                 <li>tingle-btn--pull-right</li>
             </ul>
@@ -229,7 +252,7 @@ modal.close();
                     <td>Get footer content</td>
                 </tr>
                 <tr>
-                    <td>addFooterBtn(label, cssClass, callback)</td>
+                    <td>addBtn(label, cssClass, callback)</td>
                     <td>Add buttons to footer (use cssClass for style and positioning)</td>
                 </tr>
                 <tr>
@@ -245,8 +268,12 @@ modal.close();
                     <td>Destroy modal (remove from dom and unbind events)</td>
                 </tr>
                 <tr>
-                    <td>resize() <span class="tag tag--warning">deprecated</span></td>
-                    <td>Deprecated since v0.8 and will be removed in v1.0</td>
+                    <td>tingle.alert(msg)</td>
+                    <td>Same as window.alert() using Tingle Modal</td>
+                </tr>
+                <tr>
+                    <td>tingle.confirm(msg)</td>
+                    <td>Same as window.confirm() using Tingle Modal</td>
                 </tr>
             </table>
 
@@ -340,7 +367,8 @@ modal.close();
     */
 
     var modalTinyBtn = new tingle.modal({
-        footer: true
+        footer: true,
+        theme: 'dark'
     });
     var btn2 = document.querySelector('.js-tingle-modal-2');
 
@@ -350,16 +378,42 @@ modal.close();
 
     modalTinyBtn.setContent(document.querySelector('.tingle-demo-tiny').innerHTML);
 
-    modalTinyBtn.addFooterBtn('Primary action', 'tingle-btn tingle-btn--primary tingle-btn--pull-right', function() {
-        alert('click on primary button!');
+    modalTinyBtn.addBtn({
+        label: 'Primary action',
+        type: 'primary',
+        onClick: function(){
+            alert('click on primary button!');
+        }
     });
-
-    modalTinyBtn.addFooterBtn('Cancel', 'tingle-btn tingle-btn--default tingle-btn--pull-right', function(){
-        modalTinyBtn.close();
+    modalTinyBtn.addBtn({
+        label: 'Cancel',
+        onClick: function(){
+            modalTinyBtn.close();
+        }
     });
-
-    modalTinyBtn.addFooterBtn('Danger!', 'tingle-btn tingle-btn--danger', function(){
-        alert('click on danger button!');
+    modalTinyBtn.addBtn({
+        label: 'Normal',
+        type: 'default',
+        position: 'left',
+        onClick: function(){
+            modalTinyBtn.close();
+        }
+    });
+    modalTinyBtn.addBtn({
+        label: 'Danger!',
+        type: 'danger',
+        position: 'left',
+        onClick: function(){
+            alert('click on danger button!');
+        }
+    });
+    modalTinyBtn.addBtn({
+        label: 'Success',
+        type: 'success',
+        position: 'left',
+        onClick: function(){
+            alert('click on success button!');
+        }
     });
 
     /**
@@ -385,13 +439,20 @@ modal.close();
         modalStickyFooter.open();
     });
 
-
-    modalStickyFooter.addFooterBtn('I agree', 'tingle-btn tingle-btn--primary tingle-btn--pull-right', function(){
-        modalStickyFooter.close();
+    modalStickyFooter.addBtn({
+        label: 'I agree',
+        type: 'primary',
+        onClick: function(){
+            modalStickyFooter.close();
+        }
     });
 
-    modalStickyFooter.addFooterBtn('Cancel', 'tingle-btn tingle-btn--default tingle-btn--pull-right', function(){
-        modalStickyFooter.close();
+    modalStickyFooter.addBtn({
+        label: 'Cancel',
+        type: 'default',
+        onClick: function(){
+            modalStickyFooter.close();
+        }
     });
 
     modalStickyFooter.setContent(document.querySelector('.tingle-demo-sticky').innerHTML);
@@ -411,12 +472,20 @@ modal.close();
     });
     modalButtonOnly.setContent(document.querySelector('.tingle-demo-force-close').innerHTML);
 
-    modalButtonOnly.addFooterBtn('I agree', 'tingle-btn tingle-btn--primary tingle-btn--pull-right', function(){
-        modalButtonOnly.close();
+    modalButtonOnly.addBtn({
+        label: 'I agree',
+        type: 'primary',
+        onClick: function(){
+            modalButtonOnly.close();
+        }
     });
 
-    modalButtonOnly.addFooterBtn('Cancel', 'tingle-btn tingle-btn--default tingle-btn--pull-right', function(){
-        modalButtonOnly.close();
+    modalButtonOnly.addBtn({
+        label: 'Cancel',
+        type: 'default',
+        onClick: function(){
+            modalButtonOnly.close();
+        }
     });
 
     /**
@@ -431,6 +500,25 @@ modal.close();
         });
         modalSurprise.setContent('<iframe width="100%" height="400" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allowfullscreen></iframe>');
         modalSurprise.open();
+    });
+
+    //alert
+    var btn7 = document.querySelector('.js-tingle-modal-7');
+    btn7.addEventListener('click', function(){
+        tingle.alert('Some alert message').then(function(){
+            console.log('alert finished');
+        });
+    });
+
+    //confirm
+    var btn8 = document.querySelector('.js-tingle-modal-8');
+    btn8.addEventListener('click', function(){
+        tingle.confirm('Some confirm message').then(function(){
+            console.log('you confirmed');
+        })
+        .catch(function(){
+            console.log('you cancelled');
+        });
     });
 
     </script>

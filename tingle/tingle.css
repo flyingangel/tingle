@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------- */
-/* == tingle v0.13.1 */
+/* == tingle v0.14 */
 /* ----------------------------------------------------------- */
 
 .tingle-modal * {
@@ -13,26 +13,19 @@
   bottom: 0;
   left: 0;
   z-index: 1000;
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   visibility: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
-  background: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, .9);
   opacity: 0;
   cursor: pointer;
-  -webkit-transition: -webkit-transform .2s ease;
-  transition: -webkit-transform .2s ease;
   transition: transform .2s ease;
-  transition: transform .2s ease, -webkit-transform .2s ease;
 }
 
 /* confirm and alerts
@@ -68,7 +61,6 @@
   font-family: monospace;
   line-height: 1;
   cursor: pointer;
-  -webkit-transition: color .3s ease;
   transition: color .3s ease;
 }
 
@@ -91,13 +83,15 @@
   background: #fff;
   opacity: 1;
   cursor: auto;
-  -webkit-transition: -webkit-transform .3s cubic-bezier(.175, .885, .32, 1.275);
-  transition: -webkit-transform .3s cubic-bezier(.175, .885, .32, 1.275);
   transition: transform .3s cubic-bezier(.175, .885, .32, 1.275);
-  transition: transform .3s cubic-bezier(.175, .885, .32, 1.275), -webkit-transform .3s cubic-bezier(.175, .885, .32, 1.275);
-  -webkit-transform: scale(.8);
   -ms-transform: scale(.8);
   transform: scale(.8);
+}
+
+.tingle-modal.fullscreen .tingle-modal-box {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .tingle-modal-box__content {
@@ -124,8 +118,17 @@
   bottom: -200px; /* TODO : find a better way */
   z-index: 10001;
   opacity: 1;
-  -webkit-transition: bottom .3s ease-in-out .3s;
   transition: bottom .3s ease-in-out .3s;
+}
+
+.tingle-modal-box__footer.align-center {
+    text-align: center;
+}
+
+.tingle-modal.theme-dark .tingle-modal-box,
+.tingle-modal.theme-dark .tingle-modal-box__footer {
+    background: transparent;
+    color: white;
 }
 
 /* state
@@ -153,14 +156,12 @@
 }
 
 .tingle-modal--visible .tingle-modal-box {
-  -webkit-transform: scale(1);
   -ms-transform: scale(1);
   transform: scale(1);
 }
 
 .tingle-modal--overflow {
   overflow-y: scroll;
-  padding-top: 8vh;
 }
 
 /* btn
@@ -171,7 +172,7 @@
   margin: 0 .5rem;
   padding: 1rem 2rem;
   border: none;
-  background-color: grey;
+  background-color: #444;
   box-shadow: none;
   color: #fff;
   vertical-align: middle;
@@ -180,8 +181,11 @@
   font-family: inherit;
   line-height: normal;
   cursor: pointer;
-  -webkit-transition: background-color .4s ease;
   transition: background-color .4s ease;
+  border-radius: 2px;
+}
+.tingle-btn:focus {
+    outline: none;
 }
 
 .tingle-btn--primary {
@@ -196,12 +200,55 @@
   background-color: #34495e;
 }
 
+.tingle-btn--success {
+  background-color: #01b122;
+}
+
 .tingle-btn--pull-left {
   float: left;
 }
 
 .tingle-btn--pull-right {
   float: right;
+}
+
+.tingle-modal.theme-dark .tingle-btn:hover {
+    color: white;
+}
+.tingle-modal.theme-dark .tingle-btn {
+    background-color: #111;
+}
+.tingle-modal.theme-dark .tingle-btn--danger {
+    background-color: #111;
+    border: 1px #933228 solid;
+    color: #ff6b5c;
+}
+.tingle-modal.theme-dark .tingle-btn--danger:hover {
+    background-color: #e74c3c;
+}
+.tingle-modal.theme-dark .tingle-btn--default {
+    background-color: #111;
+    border: 1px #333 solid;
+    color: white;
+}
+.tingle-modal.theme-dark .tingle-btn--default:hover {
+    background-color: #444;
+}
+.tingle-modal.theme-dark .tingle-btn--primary {
+    background-color: #111;
+    border: 1px #296892 solid;
+    color: #56bbff;
+}
+.tingle-modal.theme-dark .tingle-btn--primary:hover {
+    background-color: #3498db;
+}
+.tingle-modal.theme-dark .tingle-btn--success {
+    background-color: #111;
+    border: 1px #176626 solid;
+    color: #01df2b;
+}
+.tingle-modal.theme-dark .tingle-btn--success:hover {
+    background-color: #01b122;
 }
 
 /* responsive
